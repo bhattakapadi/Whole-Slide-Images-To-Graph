@@ -1,7 +1,10 @@
 # Graph Construction from Whole Slide Images
 
 ## Overview
-This project focuses on constructing a graph representation from Whole Slide Images (WSIs). The pipeline converts a high-resolution slide into image patches, extracts feature embeddings for each patch, and builds a spatial graph that preserves local neighborhood relationships.
+This project provides a framework for constructing graph representations directly from Whole Slide Images (WSIs).  
+The graph construction pipeline is implemented in **`wsi2graph2_v2.py`**, which outlines how WSIs are converted into graph structures for downstream graph-based analysis.
+
+The framework operates by dividing a high-resolution slide into image patches, extracting feature embeddings for each patch, and building a spatial graph that preserves local neighborhood relationships.
 
 ## Patch Extraction
 The whole slide image is first divided into small, fixed-size patches.  
@@ -30,13 +33,15 @@ To improve efficiency:
 - During training or inference, the precomputed graphs are loaded directly, significantly speeding up the overall pipeline.
 
 ## Model Flexibility and Classification Tasks
-The defined model is flexible and can be adapted for **organ-specific classification** tasks.
+The constructed graphs can be used with different downstream models.
 
-In this work, the model is used for **multi-organ classification**. However, the architecture allows easy adaptation to other tasks by modifying the **final classification layer**. Depending on the application, the output layer can be adjusted to match the required number of classes without changing the rest of the model pipeline.
+In this work, the model is used for **multi-organ classification**. However, the framework is not restricted to this setting and can be applied to **organ-specific classification** by modifying the **final classification layer** to match the required number of output classes.
 
 ## Summary
+- `wsi2graph2_v2.py` provides a framework for WSI-to-graph construction
 - WSIs are divided into patches using CLAM
 - Patch coordinates and WSIs are used to construct graphs
 - ResNet-18 provides 512-dimensional node embeddings
 - k-NN (k = 8) preserves spatial relationships
-- Precomputing graphs improves performance
+- Graphs can be precomputed to improve performance
+- The framework supports flexible downstream classification tasks
